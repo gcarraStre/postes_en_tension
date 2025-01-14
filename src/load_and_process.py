@@ -20,11 +20,11 @@ class LoadAndProcess:
                         aws_session_token = session_token)
 
     def get_secrets(self):
-        if "secrets" in st.session_state:
-            endpoint_url = st.secrets["minIO"]["ENDPOINT_URL"]
-            access_key_id = st.secrets["minIO"]["AWS_ACCESS_KEY_ID"]
-            secret_access_key = st.secrets["minIO"]["AWS_SECRET_ACCESS_KEY"]
-            session_token = st.secrets["minIO"]["AWS_SESSION_TOKEN"]
+        if "aws" in st.secrets:
+            endpoint_url = st.secrets["aws"]["ENDPOINT_URL"]
+            access_key_id = st.secrets["aws"]["AWS_ACCESS_KEY_ID"]
+            secret_access_key = st.secrets["aws"]["AWS_SECRET_ACCESS_KEY"]
+            session_token = st.secrets["aws"]["AWS_SESSION_TOKEN"]
         else:
             load_dotenv()
             endpoint_url = os.getenv('ENDPOINT_URL')
