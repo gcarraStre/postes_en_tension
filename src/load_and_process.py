@@ -11,16 +11,29 @@ class LoadAndProcess:
 
     def __init__(self):
         
-        load_dotenv()
 
-        endpoint_url = os.getenv('ENDPOINT_URL')
-        access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
-        secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
-        session_token = os.getenv('AWS_SESSION_TOKEN')
+        endpoint_url, access_key_id, secret_access_key, session_token = self.get_secrets()
+        
         self.s3 = boto3.client("s3", endpoint_url = endpoint_url,
                         aws_access_key_id = access_key_id,
                         aws_secret_access_key = secret_access_key,
                         aws_session_token = session_token)
+
+    def get_secrets(self):
+        if "secrets" in st.session_state:
+            endpoint_url = st.secrets["minIO"]["ENDPOINT_URL"]
+            access_key_id = st.secrets["minIO"]["AWS_ACCESS_KEY_ID"]
+            secret_access_key = st.secrets["minIO"]["AWS_SECRET_ACCESS_KEY"]
+            session_token = st.secrets["minIO"]["AWS_SESSION_TOKEN"]
+        else:
+            load_dotenv()
+            endpoint_url = os.getenv('ENDPOINT_URL')
+            access_key_id = os.getenv('AWS_ACCESS_KEY_ID')
+            secret_access_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+            session_token = os.getenv('AWS_SESSION_TOKEN')
+        
+        return endpoint_url, access_key_id, secret_access_key, session_token
+
 
     @st.cache_data
     def parse_data_postes_en_tension(_self):
