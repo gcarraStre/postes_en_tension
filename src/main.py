@@ -1,6 +1,7 @@
 from plots import Displayer
 import streamlit as st
-from load_and_process import parse_data_postes_en_tension, load_geojson_departements, to_geolocalised_postes_per_department
+from load_and_process import loadAndProcess
+import pandas as pd
 from streamlit_folium import st_folium
 
 class PosteEnTension(Displayer):
@@ -10,12 +11,11 @@ class PosteEnTension(Displayer):
         self.filter_data = None
         self.m = None
         
-
         st.set_page_config(page_title="Poste en tension", layout="wide")
 
-        data = parse_data_postes_en_tension()
+        data = loadAndProcess.parse_data_postes_en_tension()
 
-        geojson = load_geojson_departements()
+        geojson = loadAndProcess.load_geojson_departements()
 
         self.title_and_description()
 
@@ -27,9 +27,9 @@ class PosteEnTension(Displayer):
 
         selected_data = self.filter_data if self.filter_data is not None else data
 
-        data_map_all_data = to_geolocalised_postes_per_department(data, geojson)
+        data_map_all_data = loadAndProcess.to_geolocalised_postes_per_department(data, geojson)
 
-        data_map_selected_data = to_geolocalised_postes_per_department(selected_data, geojson)
+        data_map_selected_data = loadAndProcess.to_geolocalised_postes_per_department(selected_data, geojson)
 
         col1, col2 = st.columns([1, 1.2])
         with col1:
