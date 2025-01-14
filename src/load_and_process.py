@@ -13,7 +13,7 @@ class LoadAndProcess:
         
 
         endpoint_url, access_key_id, secret_access_key, session_token = self.get_secrets()
-        
+
         self.s3 = boto3.client("s3", endpoint_url = endpoint_url,
                         aws_access_key_id = access_key_id,
                         aws_secret_access_key = secret_access_key,
@@ -21,10 +21,10 @@ class LoadAndProcess:
 
     def get_secrets(self):
         if "secrets" in st.session_state:
-            endpoint_url = st.secrets["minIO"]["ENDPOINT_URL"]
-            access_key_id = st.secrets["minIO"]["AWS_ACCESS_KEY_ID"]
-            secret_access_key = st.secrets["minIO"]["AWS_SECRET_ACCESS_KEY"]
-            session_token = st.secrets["minIO"]["AWS_SESSION_TOKEN"]
+            endpoint_url = st.secrets["minIo"]["ENDPOINT_URL"]
+            access_key_id = st.secrets["minIo"]["AWS_ACCESS_KEY_ID"]
+            secret_access_key = st.secrets["minIo"]["AWS_SECRET_ACCESS_KEY"]
+            session_token = st.secrets["minIo"]["AWS_SESSION_TOKEN"]
         else:
             load_dotenv()
             endpoint_url = os.getenv('ENDPOINT_URL')
