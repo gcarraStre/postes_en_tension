@@ -1,6 +1,6 @@
 from plots import Displayer
 import streamlit as st
-from gitload_and_process import parse_data_postes_en_tension, load_geojson_departements, to_geolocalised_postes_per_department
+from load_and_process import parse_data_postes_en_tension, load_geojson_departements, to_geolocalised_postes_per_department
 from streamlit_folium import st_folium
 
 class PosteEnTension(Displayer):
